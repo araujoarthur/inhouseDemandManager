@@ -2,6 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 
 from helper import loginRequired, loggedInNotAllowed
+from idmSQLmanager import idmSQLmanager
 
 
 ## !! It seems it's not needed to clean data from user inputs as mariadb uses prepared statements.
@@ -17,6 +18,16 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
+
+# Setup DB
+dbconfig = {
+    'user':'root',
+    'password':'root',
+    'host':'127.0.0.1',
+    'port':3306,
+    'database':'familymanager'
+}
+db = idmSQLmanager(**dbconfig)
 
 # Taken from pset 9 to ensure responses aren't cached
 

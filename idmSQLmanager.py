@@ -2,8 +2,14 @@ import mariadb
 import sys
 
 # Resource: https://mariadb.com/resources/blog/how-to-connect-python-programs-to-mariadb/
+# Resource: https://mariadb-corporation.github.io/mariadb-connector-python/index.html
+# Resource: https://mariadb.com/docs/skysql/connect/programming-languages/python/transactions/
 
-class idmSQLmanager:
+
+class idmSQLmanager(object):
+    """
+        Class that serves the purpose of providing easy and fast SQL Access to the IDM application.
+    """
     config = {}
     def __init__(self, user='', password='', host='127.0.0.1', port='3306', database=''):
         """ Creates an idmSQLmanager object. 
@@ -11,11 +17,11 @@ class idmSQLmanager:
         """
         try:
             self.connection = mariadb.connect(
-                                            user=user,
-                                            password=password,
-                                            host=host,
-                                            port=port,
-                                            database=database
+                                              user=user,
+                                              password=password,
+                                              host=host,
+                                              port=port,
+                                              database=database
                                             )
             self.config = {
                 'user' : user,
@@ -26,12 +32,30 @@ class idmSQLmanager:
             }
             self.connection.autocommit = True
         except Exception as e:
-            print(f"Failed to Connect into MariaDB. \nERROR: {e}")
+            print(f"Failed to Connect into MariaDB.\nERROR: {e}")
             sys.exit(1)
         
         self.cursor = self.connection.cursor(dictionary=True)
         
         return None
+    
+
+    def __del__(self):
+        """
+            idmSQLmanager class finalizer
+        """
+        self.connection.close()
+
+        return None
+
+
+    def refreshConnection(self):
+        try:
+            self.connection.close()
+            self.connection = mariadb.connect(**self.config)
+            self.cursor = self.connection.cursor(dictionary=True)
+        except:
+            raise RuntimeError(f"Couldn't refresh connection to MariaDB.\nERROR: {e}")
 
 
     def disableCursorDictionary(self):
@@ -89,7 +113,7 @@ class idmSQLmanager:
     # Based on https://github.com/cs50/python-cs50/blob/main/src/cs50/sql.py
     def execute(self, query, *args):
         """
-            Executes a query if 
+            Executes a query if autocommit is enabled and the user has given the same amount of placeholders and values.
         """
         if self.connection.autocommit == False:
             raise RuntimeError('Can\'t use execute while transactions are enabled.')
@@ -106,39 +130,73 @@ class idmSQLmanager:
 
         self.cursor.execute(query, currReadyArgs)
 
-        curList = list(self.cursor)
-        print(curList)
+        return list(self.cursor)
+
+    def Transaction(self):
+        """
+            Factory method for transactions class.
+        """
+        return Transactions(self)
+
     
-    class Transaction:
-        def __init__():
-            if self.connection.autocommit == True:
-                raise RuntimeError('Can\'t use transactions while autocommit is active')
-                
-        def addStatement(query, *args):
-            if self.connection.autocommit == True:
-                raise RuntimeError('Can\'t use transactions while autocommit is active')
 
-            self.checkQuery(query)
+class Transactions(object):
+    """
+       Class that hold methods to deal with transactions wrapping MariaDB Connector methods.
+    """
+    def __init__(self, idmSQL):
+        if idmSQL.connection.autocommit == True:
+            raise RuntimeError('Can\'t use transactions while autocommit is enabled.')
+        self.idmSQL = idmSQL
+        self.statementList = []
 
-            qmarkCount = query.count('?')
-            if qmarkCount > len(args):
-                raise RuntimeError('More placeholders than arguments')
-            elif qmarkCount < len(args):
-                raise RuntimeError('More arguments than placeholders')
+
+    def addStatement(self, query, *args):
+        """
+            Method to add a statement to a statementList to be executed at once in a query, allowing minimal time of
+            open transactions.
+            TO-DO:
+                - Test efficiecy.
+        """
+        if self.idmSQL.connection.autocommit == True:
+            raise RuntimeError('Can\'t use transactions while autocommit is active')
+
+        self.idmSQL.checkQuery(query)
+
+        qmarkCount = query.count('?')
+        if qmarkCount > len(args):
+            raise RuntimeError('More placeholders than arguments')
+        elif qmarkCount < len(args):
+            raise RuntimeError('More arguments than placeholders')
             
+        currReadyArgs = tuple(args)
+        self.statementList.append((query, currReadyArgs))
 
+    def getStatementList(self):
+        """
+            Retrieve items from statementList.
+        """
+        return self.statementList
+    
+    def removeFromStatementList(self, pair):
+        """
+            Remove items from the statementList
+        """
+        try:
+            self.statementList.remove(pair)
+            return True
+        except:
+            return False
 
-config = {
-    'user':'root',
-    'password':'root',
-    'host':'127.0.0.1',
-    'port':3306,
-    'database':'familymanager'
-}
-
-d = idmSQLmanager(**config)
-d.enableAutoCommit()
-d.disableCursorDicitonary()
-print(d.execute("SELECT * FROM test"))
-print(d.execute("SELECT * FROM test WHERE val1=?", 1))
+    def commitStatementList(self):
+        """
+            Execute and commit all items from the statementList
+        """
+        if len(self.statementList) == 0:
+            raise RuntimeError("Missing statements in statementList")
+        for commitable in self.statementList:
+            self.idmSQL.cursor.execute(commitable[0], commitable[1])
+        
+        self.idmSQL.connection.commit()
+        self.idmSQL.refreshConnection()
 
