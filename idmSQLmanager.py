@@ -18,11 +18,11 @@ class idmSQLmanager:
                                             database=database
                                             )
             self.config = {
-                'user' = user,
-                'password' = password,
-                'host' = host,
-                'port' = port,
-                'database' = database
+                'user' : user,
+                'password' : password,
+                'host' : host,
+                'port' : port,
+                'database' : database
             }
             self.connection.autocommit = True
         except Exception as e:
@@ -30,18 +30,18 @@ class idmSQLmanager:
             sys.exit(1)
         
         self.cursor = self.connection.cursor(dictionary=True)
-
+        
         return None
 
 
-    def disableCursorDicitonary(self):
+    def disableCursorDictionary(self):
         """
             Disables dictionary into cursor result for cases where it'd be desidered to handle tuples.
         """
         self.cursor = self.connection.cursor(dictionary=False)
         return True
 
-    def enableCursorDictonary(self):
+    def enableCursorDictionary(self):
         """
             Enables dictionary into cursor result so it's easier to deal with resulting data from queries.
         """
@@ -88,6 +88,9 @@ class idmSQLmanager:
 
     # Based on https://github.com/cs50/python-cs50/blob/main/src/cs50/sql.py
     def execute(self, query, *args):
+        """
+            Executes a query if 
+        """
         if self.connection.autocommit == False:
             raise RuntimeError('Can\'t use execute while transactions are enabled.')
         
@@ -102,9 +105,9 @@ class idmSQLmanager:
         currReadyArgs = tuple(args)
 
         self.cursor.execute(query, currReadyArgs)
-        self.connection.cursor(dictionary=True)
 
-        print(self.cursor.fetchall())
+        curList = list(self.cursor)
+        print(curList)
     
     class Transaction:
         def __init__():
@@ -135,6 +138,7 @@ config = {
 
 d = idmSQLmanager(**config)
 d.enableAutoCommit()
+d.disableCursorDicitonary()
 print(d.execute("SELECT * FROM test"))
 print(d.execute("SELECT * FROM test WHERE val1=?", 1))
 
