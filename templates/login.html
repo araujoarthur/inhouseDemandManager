@@ -1,4 +1,29 @@
-{% extends "baseHeading.html" %}
+{% extends "baseForms.html" %}
 
-{% block main %}
+{% block title %} Login {% endblock %}
+
+{% block formSection %}
+            <form action="/login" method="POST">
+                <img role="logo" src="{{ url_for('static', filename='logo.png') }}">
+                <div class="mb-3 d-block">
+                    <input requierd="required" autocomplete="off" class="form-control mx-auto w-auto logincontrol" type="text" placeholder="Username" name="username"> 
+                    <div id="tooltipuser" class="cst-tooltip" role="tooltip">
+                        Must type username
+                        <div id="arrowuser" class="cst-arrow" data-popper-arrow></div>
+                    </div>
+                </div>
+                <div class="mb-3 d-block">
+                    <input class="form-control mx-auto w-auto logincontrol" autocomplete="current-password" type="password" placeholder="Password" name="password">
+                    <div id="tooltippass" class="cst-tooltip" role="tooltip">
+                        Must type password
+                        <div id="arrowpass" class="cst-arrow" data-popper-arrow></div>
+                    </div>
+                </div>
+                {% if get_flashed_messages() %}
+                    <!-- show flashed messages in a cool way :) -->
+                {% endif %}
+                <button role="button" id="login-button" class="btn btn-primary btn-login">Login</button>
+                <span role="text" class="cst-smallText"> or <a role="link" href="/register">Create an account</a></span>
+            </form>
+            <script src="{{ url_for('static', filename='login.js') }}"></script>
 {% endblock %}
