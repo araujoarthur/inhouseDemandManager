@@ -1,0 +1,1 @@
+/* Archive to keep track of used queries in order to add index to tables when finishing the project */
