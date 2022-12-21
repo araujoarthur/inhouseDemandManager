@@ -1,0 +1,43 @@
+{% extends "baseForms.html" %}
+
+{% block title %} Create a Family {% endblock %}
+
+{% block formSection %}
+<form action="/create_family" method="POST">
+    <img role="logo" src="{{ url_for('static', filename='logo.png') }}">
+    <h1 class="cst-formTitle">Create a family</h1>
+    <div class="mb-3 d-block">
+        <input requierd="required" autocomplete="off" class="form-control mx-auto w-auto logincontrol" type="text" placeholder="Family Name" name="family_name"> 
+        <div id="tooltipfn" class="cst-tooltip" role="tooltip">
+            Must type Family Code
+            <div id="arrowfn" class="cst-arrow" data-popper-arrow></div>
+        </div>
+    </div>
+
+    <div class="mb-3 d-block">
+        <input class="form-control mx-auto w-auto logincontrol" autocomplete="password" type="password" placeholder="Family Secret Code" name="family_secret">
+        <div id="tooltipfsc" class="cst-tooltip" role="tooltip">
+            Must type secret code
+            <div id="arrowfsc" class="cst-arrow" data-popper-arrow></div>
+        </div>
+    </div>
+
+    <div class="mb-3 d-block">
+        <input class="form-control mx-auto w-auto logincontrol" autocomplete="confirm-password" type="password" placeholder="Confirm Secret Code" name="confirmation">
+        <div id="tooltipconf" class="cst-tooltip" role="tooltip">
+            Must type secret ccode confirmation
+            <div id="arrowconf" class="cst-arrow" data-popper-arrow></div>
+        </div>
+    </div>
+    {% if get_flashed_messages() %}
+        <div class="cst-alert-form-warning">
+            {{ get_flashed_messages() | join(" ") }}
+        </div>
+    {% endif %}
+
+    <button role="button" id="login-button" class="btn btn-primary btn-login">Create</button>
+    <span role="text" class="cst-smallText"> or <a role="link" href="/join_family">Join a Family</a></span>
+
+    <script src="{{ url_for('static', filename='create_family.js') }}"></script>
+</form>
+{% endblock %}

@@ -1,10 +1,10 @@
 import mariadb
 import sys
+import traceback
 
 # Resource: https://mariadb.com/resources/blog/how-to-connect-python-programs-to-mariadb/
 # Resource: https://mariadb-corporation.github.io/mariadb-connector-python/index.html
 # Resource: https://mariadb.com/docs/skysql/connect/programming-languages/python/transactions/
-
 
 class idmSQLmanager(object):
     """
@@ -107,7 +107,10 @@ class idmSQLmanager(object):
         elif not(statList[0][0].value in ["UPDATE", "INSERT", "SELECT", "DELETE"]):
             raise RuntimeError('Not a valid operation')
 
-        return None
+        if statList[0][0].value == "SELECT":
+            return True
+        else:
+            return None
 
 
     # Based on https://github.com/cs50/python-cs50/blob/main/src/cs50/sql.py
@@ -118,7 +121,7 @@ class idmSQLmanager(object):
         if self.connection.autocommit == False:
             raise RuntimeError('Can\'t use execute while transactions are enabled.')
         
-        self.checkQuery(query)
+        resultQuery = self.checkQuery(query)
 
         qmarkCount = query.count('?')
         if qmarkCount > len(args):
@@ -127,10 +130,18 @@ class idmSQLmanager(object):
             raise RuntimeError('More arguments than placeholders')
         
         currReadyArgs = tuple(args)
+        try:
+            self.cursor.execute(query, currReadyArgs)
+            if resultQuery is None:
+                return self.cursor.lastrowid
+            else:  
+                return list(self.cursor)
+        except Exception as e:
+            print(traceback.format_exc())
+            return False
 
-        self.cursor.execute(query, currReadyArgs)
-
-        return list(self.cursor)
+        
+        
 
     def Transaction(self):
         """

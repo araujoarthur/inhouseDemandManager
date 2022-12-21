@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     let loginButton = document.querySelector("#login-button");
-    let usernameInput = document.querySelector("input[name='username']");
-    let passwordInput = document.querySelector("input[name='password']");
+    let nameInput = document.querySelector("input[name='family_name']");
+    let secretInput = document.querySelector("input[name='family_secret']");
     let confirmationInput = document.querySelector("input[name='confirmation'");
-    let usernameTooltip = document.querySelector("#tooltipuser");
-    let passwordTooltip = document.querySelector("#tooltippass");
+    let nameTooltip = document.querySelector("#tooltipfn");
+    let secretTooltip = document.querySelector("#tooltipfsc");
     let confirmationTooltip = document.querySelector("#tooltipconf");
     
 
-    const popperUsername = Popper.createPopper(usernameInput, usernameTooltip,{
+    const popperName = Popper.createPopper(nameInput, nameTooltip,{
         placement:'right',
         modifiers:[
             {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
         ]
     });
 
-    const popperPassword = Popper.createPopper(passwordInput, passwordTooltip,{
+    const popperSecret = Popper.createPopper(secretInput, secretTooltip,{
         placement:'right',
         modifiers:[
             {
@@ -54,24 +54,24 @@ document.addEventListener('DOMContentLoaded', function(){
         ]
     });
 
-    function checkUsername() {
-        if (usernameInput.value == '') {
-            showTooltip(usernameTooltip, popperUsername);
+    function checkName() {
+        if (nameInput.value == '') {
+            showTooltip(nameTooltip, popperName);
             return true;
         }
         else {
-            hideTooltip(usernameTooltip);
+            hideTooltip(nameTooltip);
             return false;
         }
     }
 
-    function checkPassword() {
-        if (passwordInput.value == '') {
-            showTooltip(passwordTooltip, popperPassword);
+    function checkSecret() {
+        if (secretInput.value == '') {
+            showTooltip(secretTooltip, popperSecret);
             return true;
         }
         else {
-            hideTooltip(passwordTooltip);
+            hideTooltip(secretTooltip);
             return false;
         }  
     }
@@ -91,12 +91,12 @@ document.addEventListener('DOMContentLoaded', function(){
    
         let invalidField = false
 
-        if (checkUsername())
+        if (checkName())
         {
             invalidField = true;
         }
 
-        if  (checkPassword())
+        if  (checkSecret())
         {
             invalidField = true;
         }
@@ -113,12 +113,14 @@ document.addEventListener('DOMContentLoaded', function(){
         
     })
 
-    passwordInput.addEventListener('input', function(){
-        checkPassword()
+    secretInput.addEventListener('input', function(){
+        checkSecret()
     });
-    usernameInput.addEventListener('input', function(){
-        checkUsername()
+    
+    nameInput.addEventListener('input', function(){
+        checkName()
     });
+
     confirmationInput.addEventListener('input', function(){
         checkConfirmation()
     });

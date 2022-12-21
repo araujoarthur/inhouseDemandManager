@@ -1,0 +1,35 @@
+{% extends "baseForms.html" %}
+
+{% block title %}Join Family{% endblock %}
+
+{% block formSection %}
+    <img role="logo" src="{{ url_for('static', filename='logo.png') }}">
+    <div class="infoBox">
+        <p>
+            InhouseDM is all about grouping people's demands in their homes. To use all features you must join or create a family.
+        </p>
+    </div>
+    <div class="mt-5">
+        <form action="/login" method="POST">
+            <div class="mb-3 d-block">
+                <input requierd="required" autocomplete="off" class="form-control mx-auto w-auto logincontrol" type="text" placeholder="Family Code" name="familycode"> 
+                <div id="tooltipcode" class="cst-tooltip" role="tooltip">
+                    Must type family code
+                    <div id="arrowcode" class="cst-arrow" data-popper-arrow></div>
+                </div>
+            </div>
+
+            <div class="mb-3 d-block">
+                <input requierd="required" autocomplete="off" class="form-control mx-auto w-auto logincontrol" type="text" placeholder="Family Secret Code" name="familysecret"> 
+                <div id="tooltipsecret" class="cst-tooltip" role="tooltip">
+                    Must type family secret code
+                    <div id="arrowsecret" class="cst-arrow" data-popper-arrow></div>
+                </div>
+            </div>
+
+            <button role="button" id="join-button" class="btn btn-primary btn-login">Join</button>
+            <span role="text" class="cst-smallText"> or <a role="link" href="/create_family">Create a Family</a></span>
+            <script src="{{ url_for('static', filename='join_family.js') }}"></script>
+        </form>
+    </div>
+{% endblock %}

@@ -5,6 +5,11 @@
 {% block formSection %}
             <form action="/login" method="POST">
                 <img role="logo" src="{{ url_for('static', filename='logo.png') }}">
+                {% if request.args.get('success') %}
+                    <div class="cst-alert-form-success">
+                        Account Created!
+                    </div>
+                {% endif %}
                 <div class="mb-3 d-block">
                     <input requierd="required" autocomplete="off" class="form-control mx-auto w-auto logincontrol" type="text" placeholder="Username" name="username"> 
                     <div id="tooltipuser" class="cst-tooltip" role="tooltip">
@@ -20,7 +25,9 @@
                     </div>
                 </div>
                 {% if get_flashed_messages() %}
-                    <!-- show flashed messages in a cool way :) -->
+                    <div class="cst-alert-form-warning">
+                        {{ get_flashed_messages() | join(" ") }}
+                    </div>
                 {% endif %}
                 <button role="button" id="login-button" class="btn btn-primary btn-login">Login</button>
                 <span role="text" class="cst-smallText"> or <a role="link" href="/register">Create an account</a></span>

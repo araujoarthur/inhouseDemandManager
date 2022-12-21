@@ -1,7 +1,10 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 
-from helper import loginRequired, loggedInNotAllowed
+# Resource: https://tedboy.github.io/flask/generated/werkzeug.generate_password_hash.html
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from helper import loginRequired, loggedInNotAllowed, familyRequired, familyMemberNotAllowed
 from idmSQLmanager import idmSQLmanager
 
 
@@ -44,9 +47,27 @@ def after_request(response):
 @loggedInNotAllowed
 def login():
     if request.method == "POST":
-        pass
+        if not request.form.get("username"):
+            flash('No username given.')
+            return redirect("/login", code=401)
+        elif not request.form.get("password"):
+            flash('No password given.')
+            return redirect("/login", code=401)
+        else:
+            userData = db.execute("SELECT * FROM users WHERE username = ?", request.form.get('username'))
+            if len(userData) == 0:
+                flash("Invalid username.")
+                return redirect("/login")
+            elif not check_password_hash(userData[0]['password'], request.form.get('password')):
+                flash("Invalid password.")
+                return redirect("/login")
+            else:
+                session['user_id'] = userData[0]['id']
+                session['family_id'] = userData[0]['family_id']
+                return redirect("/")
     else:
         return render_template("login.html")
+
 
 @app.route("/register", methods=["GET", "POST"])
 @loggedInNotAllowed
@@ -66,15 +87,73 @@ def register():
                 flash('Password and Password Confirmation aren\'t equal. ')
                 return redirect("/register")
             else:
-                pass
-                # Check on database if username is already taken.
+                userData = db.execute('SELECT * FROM users WHERE username = ?', request.form.get('username'))
+
+                if len(userData) > 0:
+                    flash('Username already taken!')
+                    return redirect("/register")
+                
+                passwordHash = generate_password_hash(request.form.get("password"))
+
+                db.execute("INSERT INTO users(username, password) VALUES(?,?)", request.form.get("username"), passwordHash)
+                return redirect('/login?success=True')
     else:
         return render_template("register.html")
 
+@app.route("/logout")
+@loginRequired
+def logout():
+    session.clear()
+    return redirect("/")
+
+
 @app.route("/")
 @loginRequired
+@familyRequired
 def index():
-    return []
+    pass
+
+
+@app.route('/join_family', methods=["GET", "POST"])
+@loginRequired
+@familyMemberNotAllowed
+def join_family():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template('join_family.html');
+
+
+@app.route("/create_family", methods=["GET", "POST"])
+@loginRequired
+@familyMemberNotAllowed
+def create_family():
+    if request.method == "POST":
+        if not request.form.get("family_name"):
+            flash("You must fill the family name field.")
+            return redirect("/create_family")
+        elif not request.form.get("family_secret"):
+            flash("You must fill the family secret code field.")
+            return redirect("/create_family")
+        elif not request.form.get("confirmation"):
+            flash("You must fill the secret code confirmation field.")
+            return redirect("/create_family")
+        elif not (request.form.get("confirmation") == request.form.get("family_secret")):
+            flash("Secret Code and Secret Code Confirmation aren't equal.")
+            return redirect("/create_family")
+        else:
+            queryData = db.execute("INSERT INTO families(name, secret) VALUES(?, ?)", request.form.get("family_name"), request.form.get("family_secret"))
+            if queryData != False:
+                session['family_id'] = queryData;
+                db.execute("UPDATE users SET family_id = ? WHERE id = ?", session['family_id'], session['user_id'])
+                flash("Family Successfuly Created.")
+                return redirect("/")
+            else:
+                return redirect("create_family?success=False")
+
+    else:
+        return render_template("create_family.html")
+
 
 @app.route("/testingRoute")
 def testingRoute():
