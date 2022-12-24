@@ -12,6 +12,9 @@ from idmSQLmanager import idmSQLmanager
 
 app = Flask(__name__)
 
+# Setting some variables to be used in jinja templates.
+app.jinja_env.globals['idm_version'] = '1.0.0'
+
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Configure session to use filesystem (instead of signed cookies) as per pset9. Still trying to understand how it works
