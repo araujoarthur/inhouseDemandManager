@@ -8,22 +8,49 @@
         <a class="navbar-brand" href="#">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="InhouseDM" width="60" height="48">
         </a>
+
         <!-- https://www.geeksforgeeks.org/how-to-create-dropdown-list-using-javascript/ -->
         
         <div class="ms-auto d-flex align-middle">
+            <div id="newDemandDropdown">
+                <div id="newDemandButton" class="cst-dropdown cst-dropdown-out d-flex iconButton me-3">
+                    <a class="cst-dropdown-a d-flex" href="/">New Demand&nbsp;<span class="material-icons">add_task</span></a>
+                </div>
+                <div id="newDemandMenu" class="dropdownMenu align-middle">
+                    <span class="dropdownArrow"></span>
+                    <ul class="justify-content-center d-inlineblock w-100 justify-content-center">
+                        <li class="justify-content-center d-block"><a class="d-flex align-items-center" href="/"><span class="material-symbols-outlined">receipt_long</span> &nbsp;&nbsp;BILL</a></li>
+                        <li class="justify-content-center mt-2 mb-2 d-block"><a class="d-flex align-items-center" href="/"><span class="material-symbols-outlined">shopping_basket</span>&nbsp;&nbsp;GOODS LIST</a></li>
+                        <li class="justify-content-center d-block"><a class="d-flex align-items-center" href="/"><span class="material-symbols-outlined">list_alt</span>&nbsp;&nbsp;CHORES</a></li>
+                    </ul>
+                </div>
+            </div>
+              
+            <div id="groupsDropdown">
+                <div id="groupsButton" class="cst-dropdown cst-dropdown-out d-flex iconButton me-3">
+                    <a class="cst-dropdown-a d-flex" href="/family"><span class="material-icons">groups</span></a>
+                </div>  
+                <div id="groupsMenu" class="dropdownMenu align-middle">
+                    <span class="dropdownArrow"></span>
+                    <ul class="justify-content-center d-inlineblock w-100 justify-content-center">
+                        <li class="justify-content-center d-block"><a class="d-flex align-items-center" href="/"><span class="material-icons">group</span> &nbsp;&nbsp;MEMBERS</a></li>
+                        <li class="justify-content-center d-block"><a class="d-flex align-items-center" href="/"><span class="material-symbols-outlined">space_dashboard</span>&nbsp;&nbsp;DASHBOARD</a></li>
+                    </ul>
+                </div>
+            </div>
             
-            <div id="newDemandButton" class="cst-dropdown cst-dropdown-out d-flex iconButton me-3">
-                New Demand&nbsp;<span class="material-icons">add_task</span>
+            <div id="profileDropdown">
+                <div id="profileButton" class="cst-dropdown cst-dropdown-out d-flex iconButton">
+                    <a class="cst-dropdown-a d-flex" href="/profile"><span class="material-icons">person</span></a>
+                </div>
+                <div id="profileMenu" class="dropdownMenu align-middle">
+                    <span class="dropdownArrow"></span>
+                    <ul class="justify-content-center d-inlineblock w-100 justify-content-center">
+                        <li class="justify-content-center d-block"><a class="d-flex align-items-center" href="/profile"><span class="material-icons">person</span> &nbsp;&nbsp;PROFILE</a></li>
+                        <li class="justify-content-center d-block"><a class="d-flex align-items-center" href="/logout"><span class="material-symbols-outlined">logout</span>&nbsp;&nbsp;LOGOUT</a></li>
+                    </ul>
+                </div>
             </div>
-
-            <div id="groupsButton" class="cst-dropdown cst-dropdown-out d-flex iconButton me-3">
-                <span class="material-icons">groups</span>
-            </div>
-
-            <div id="profileButton" class="cst-dropdown cst-dropdown-out d-flex iconButton">
-                <span class="material-icons">person</span>
-            </div>
-
         </div>
     </div>
 </nav>

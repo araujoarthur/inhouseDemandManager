@@ -26,6 +26,35 @@ img[role="logo"] {
 
 /* Own IDs */
 
+
+#profileMenu, #groupsMenu, #newDemandMenu {
+    display: none;
+}
+
+
+#profileMenu[showMenu] { 
+    display: block !important;
+}
+
+#groupsMenu[showMenu] {
+    display: block !important; 
+}
+
+#newDemandMenu[showMenu] {
+    display: block !important;
+}
+
+#profileDropdown > #profileMenu {
+    right:5px;
+}
+
+#groupsDropdown > #groupsMenu {
+    right:70px;
+}
+
+#newDemandDropdown > #newDemandMenu {
+    right:140px;
+}
 /* Own Classes */
 
 /* https://webdesign.tutsplus.com/tutorials/how-to-create-a-frosted-glass-effect-in-css--cms-32535  for matte glass */
@@ -178,10 +207,91 @@ img[role="logo"] {
     background-color: #2DAC9B !important;
     color: white;
 }
+
+.cst-dropdown-a {
+    text-decoration: none;
+    vertical-align: middle;
+    color:inherit;
+}
+
+.cst-dropdown-a:hover{
+    color: inherit !important;
+}
+
 .iconButton {
     border-radius:10px;
 }
 
+.dropdownMenu {
+    background-color: #189685;
+    top:calc(100% - 5px);
+    font-family: 'Roboto', sans-serif;
+    color:white;    
+    border:3px solid #eeaeac;
+    border-radius:15px;
+    position:absolute;
+    padding:10px 0px 10px;
+}
+
+.dropdownArrow, .dropdownArrow::before {
+    position:absolute;
+    width:8px;
+    height:8px;
+    background-color: #eeaeac;
+}
+    
+.dropdownArrow {
+    visibility: hidden;
+}
+
+.dropdownArrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+}
+
+#newDemandMenu > .dropdownArrow {
+    top:-6px;
+    right:20px;
+}
+
+#profileMenu > .dropdownArrow {
+    top:-6px;
+    right:20px;
+}
+
+#groupsMenu > .dropdownArrow {
+    top:-6px;
+    right: 15px; 
+}
+
+.dropdownMenu ul {
+    list-style-type:none;
+    margin:0px;
+    padding:0px;
+}
+
+.dropdownMenu ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    
+}
+
+.dropdownMenu ul li a {
+    font-family: 'Montserrat', sans-serif;
+    padding:0px 20px 0px 20px;
+    width:100% !important;
+    color:inherit;
+    vertical-align: middle;
+    font-size: 8pt;
+    text-decoration: none;
+}
+
+.dropdownMenu ul li a:hover {
+    background-color: #eeaeac;
+    color:whitesmoke;
+
+}
 /* Bootstrap Overrides */
 
 .btn.btn-primary.btn-login {
