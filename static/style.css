@@ -1,6 +1,6 @@
 /* Imports  */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"); /* Bootstrap Icons */
 
 /* Raw Tag Rules and Overrides */
@@ -8,11 +8,18 @@
 html, body {
     height: 100% !important;
     background: rgb(238,174,202);
+    padding:0px;
+    margin:0px;
     background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 form h1 {
     margin-bottom:15px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Lexend Deca", sans-serif;
+    color:#189685;
 }
 
 img[role="logo"] {
@@ -21,6 +28,37 @@ img[role="logo"] {
     -moz-user-select: none  !important;
     -webkit-user-select: none  !important;
     -ms-user-select: none  !important;
+}
+
+footer {
+    color:#2DAC9B;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
+    font-size:10pt;
+    margin:0px;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;
+}
+
+footer a {
+    color:inherit;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+footer a:hover {
+    color:#189685;
+    font-weight: 900;
+}
+
+footer a:hover path {
+    fill:#189685;
+}
+
+path {
+    fill: #2DAC9B;
 }
 
 
@@ -55,6 +93,23 @@ img[role="logo"] {
 #newDemandDropdown > #newDemandMenu {
     right:140px;
 }
+
+#contentBox {
+    background-color: #f5f5f5;
+    margin:5px 10px 5px 10px;
+    height:calc(100% - 74px - 60px - 10px);
+    border-radius: 10px;
+    padding:15px 5px 15px 5px;
+}
+
+#contentTitle {
+    font-size:10pt;
+    background-color: #e6e6e6;
+    display: inline;
+    padding:5px 20px 5px 20px;
+    border-radius:15px
+}
+
 /* Own Classes */
 
 /* https://webdesign.tutsplus.com/tutorials/how-to-create-a-frosted-glass-effect-in-css--cms-32535  for matte glass */
@@ -282,16 +337,51 @@ img[role="logo"] {
     padding:0px 20px 0px 20px;
     width:100% !important;
     color:inherit;
-    vertical-align: middle;
     font-size: 8pt;
     text-decoration: none;
 }
 
 .dropdownMenu ul li a:hover {
     background-color: #eeaeac;
+    padding:-0.5px;
     color:whitesmoke;
-
 }
+
+.boxTitle {
+    font-size:9pt;
+}
+
+.cst-infoBox {
+    padding:10px;
+    border:2.5px solid rgba(214, 214, 214,0.5);
+    border-radius:10px;
+}
+
+.cst-field-general{
+    padding: 5px;
+    font-family: 'Lexend Deca', sans-serif;
+    border: 2px solid #2DAC9B;
+}
+
+.field-Title {
+    background-color: #2DAC9B;
+    color:whitesmoke;
+    font-weight: 300;
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+    display:inline-block;
+    min-width: 80px;
+}
+
+.field-Value {
+    background-color: #EAEAEA;
+    font-weight: 200;
+    border-end-end-radius: 10px;
+    border-start-end-radius: 10px;
+    display:inline-block;
+    min-width: 120px;
+}
+
 /* Bootstrap Overrides */
 
 .btn.btn-primary.btn-login {

@@ -67,6 +67,7 @@ def login():
             else:
                 session['user_id'] = userData[0]['id']
                 session['family_id'] = userData[0]['family_id']
+                session['username'] = userData[0]['username']
                 return redirect("/")
     else:
         return render_template("login.html")
@@ -185,6 +186,11 @@ def create_family():
     else:
         return render_template("create_family.html")
 
+@app.route("/profile")
+@loginRequired
+@familyRequired
+def profile():
+    return render_template("profile.html")
 
 @app.route("/testingRoute")
 def testingRoute():
