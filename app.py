@@ -111,7 +111,7 @@ def logout():
 @loginRequired
 @familyRequired
 def index():
-    pass
+    return render_template("index.html")
 
 
 @app.route('/join_family', methods=["GET", "POST"])
@@ -119,9 +119,37 @@ def index():
 @familyMemberNotAllowed
 def join_family():
     if request.method == "POST":
-        pass
-    else:
-        return render_template('join_family.html');
+        if not request.form.get("familycode"):
+            flash("You must fill the family code field.")
+            return redirect("/join_family")
+        elif not request.form.get("familysecret"):
+            flash("You must fill the family secret field.")
+            return redirect("/join_family")
+        elif request.form.get("familycode") == 1:
+            flash("Invalid family code.")
+            return redirect("/join_family")
+        else:
+            queryResult = db.execute("SELECT * FROM families WHERE id = ?", request.form.get("familycode"))
+            print(queryResult)
+            if len(queryResult) == 0:
+                flash(f"There's no family with code { str(request.form.get('familycode')) }.")
+                return redirect("/join_family")
+            elif queryResult[0]['secret'] != request.form.get('familysecret'):
+                flash(f"Incorrect secret code. Are you sure you are trying to join '{queryResult[0]['name']}'?")
+                return redirect("/join_family")
+            else:
+                queryData = db.execute("UPDATE users SET family_id = ? WHERE id = ?", request.form.get('familycode'), session['user_id'])
+                if queryData != False:
+                    print(queryData)
+                    session['family_id'] = queryData
+                    flash("Joined successfuly.")
+                    return redirect("/")
+                else:
+                    flash("Something went wrong.")
+                    return redirect("/join_family?success=False")
+                
+    else:       
+        return render_template('join_family.html')
 
 
 @app.route("/create_family", methods=["GET", "POST"])
@@ -144,9 +172,9 @@ def create_family():
         else:
             queryData = db.execute("INSERT INTO families(name, secret) VALUES(?, ?)", request.form.get("family_name"), request.form.get("family_secret"))
             if queryData != False:
-                session['family_id'] = queryData;
+                session['family_id'] = queryData
                 db.execute("UPDATE users SET family_id = ? WHERE id = ?", session['family_id'], session['user_id'])
-                flash("Family Successfuly Created.")
+                flash("Family successfuly created.")
                 return redirect("/")
             else:
                 return redirect("create_family?success=False")

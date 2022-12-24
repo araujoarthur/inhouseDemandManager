@@ -1,4 +1,32 @@
-{% extends "baseApp.html" %}
+{% extends "baseHeading.html" %}
+
 
 {% block main %}
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="InhouseDM" width="60" height="48">
+        </a>
+        <!-- https://www.geeksforgeeks.org/how-to-create-dropdown-list-using-javascript/ -->
+        
+        <div class="ms-auto d-flex align-middle">
+            
+            <div id="newDemandButton" class="cst-dropdown cst-dropdown-out d-flex iconButton me-3">
+                New Demand&nbsp;<span class="material-icons">add_task</span>
+            </div>
+
+            <div id="groupsButton" class="cst-dropdown cst-dropdown-out d-flex iconButton me-3">
+                <span class="material-icons">groups</span>
+            </div>
+
+            <div id="profileButton" class="cst-dropdown cst-dropdown-out d-flex iconButton">
+                <span class="material-icons">person</span>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}

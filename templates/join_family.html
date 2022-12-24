@@ -10,7 +10,7 @@
         </p>
     </div>
     <div class="mt-5">
-        <form action="/login" method="POST">
+        <form action="/join_family" method="POST">
             <div class="mb-3 d-block">
                 <input requierd="required" autocomplete="off" class="form-control mx-auto w-auto logincontrol" type="text" placeholder="Family Code" name="familycode"> 
                 <div id="tooltipcode" class="cst-tooltip" role="tooltip">
@@ -26,6 +26,12 @@
                     <div id="arrowsecret" class="cst-arrow" data-popper-arrow></div>
                 </div>
             </div>
+            
+            {% if get_flashed_messages() %}
+                <div class="cst-alert-form-warning">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            {% endif %}
 
             <button role="button" id="join-button" class="btn btn-primary btn-login">Join</button>
             <span role="text" class="cst-smallText"> or <a role="link" href="/create_family">Create a Family</a></span>
