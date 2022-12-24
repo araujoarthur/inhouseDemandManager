@@ -16,3 +16,11 @@ CREATE TABLE users(
     FOREIGN KEY (family_id) REFERENCES families(id)
 );
 
+CREATE TABLE profiles(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    user_id INTEGER NOT NULL,
+    name VARCHAR(50) NOT NULL DEFAULT '' ,
+    email VARCHAR(30) NOT NULL DEFAULT '',
+    brithday TIMESTAMP NOT NULL DEFAULT ''
+)
+

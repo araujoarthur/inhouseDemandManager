@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
-    let dropdownProfileButton = document.querySelector('#profileButton');
-    let dropdownGroupsButton = document.querySelector('#groupsButton');
-    let dropdownNewDemandButton = document.querySelector('#newDemandButton');
+    // Nav JS
 
     let divNewDemand = document.querySelector('#newDemandDropdown');
     let divGroups = document.querySelector('#groupsDropdown');
@@ -40,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }, 100);
         });
     }
-
+    
+    // End Nav JS
 
 });
