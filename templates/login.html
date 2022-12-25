@@ -3,6 +3,7 @@
 {% block title %} Login {% endblock %}
 
 {% block formSection %}
+
             <form action="/login" method="POST">
                 <img role="logo" src="{{ url_for('static', filename='logo.png') }}">
                 {% if request.args.get('success') %}
