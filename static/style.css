@@ -367,8 +367,15 @@ path {
     font-size:9pt;
 }
 
+.boxTitle-large {
+    font-size:15pt;
+}
+
 .cst-infoBox {
     padding:15px;
+}
+
+.cst-boxBorder {
     border:2.5px solid rgba(214, 214, 214,0.5);
     border-radius:10px;
 }
@@ -392,6 +399,7 @@ path {
 .field-Value {
     background-color: #EAEAEA;
     font-weight: 200;
+    text-align: right;
     border-end-end-radius: 10px;
     border-start-end-radius: 10px;
     display:inline-block;
