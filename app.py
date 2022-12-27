@@ -190,7 +190,32 @@ def create_family():
 @loginRequired
 @familyRequired
 def profile():
-    return render_template("profile.html")
+    profileData = db.execute('SELECT * FROM profiles WHERE user_id = ?', session['user_id'])
+
+    if not(request.args.get('create')):
+        familyData = db.execute('SELECT * from families WHERE id = ?', session['family_id'])[0]
+
+        familyDict = {
+            'name': familyData['name'],
+            'assigned': 0,
+            'overdue': 0
+        }
+
+        if len(profileData) == 0:
+            return render_template("profile.html", familyInfo=familyDict)
+        else:
+            profileData = profileData[0]
+            profileDict = {
+                'name': profileData['name'],
+                'birthday': profileData['birthday'],
+                'email': profileData['email']
+            }
+            return render_template("profile.html", familyInfo=familyDict, personalData=profileDict)
+    else:
+        if len(profileData) > 0:
+            return redirect("/profile")
+        else:
+            return render_template("create_profile.html")
 
 @app.route("/testingRoute")
 def testingRoute():

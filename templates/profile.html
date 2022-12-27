@@ -2,8 +2,8 @@
 {% block title %} Profile {% endblock %}
 {% block pageHeading %} {{ session['username'] }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12"><path d="M4.7 10c-.2 0-.4-.1-.5-.2-.3-.3-.3-.8 0-1.1L6.9 6 4.2 3.3c-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0l3.3 3.2c.3.3.3.8 0 1.1L5.3 9.7c-.2.2-.4.3-.6.3z"></path></svg> profile {% endblock %}
 {% block contentBox %}
-<div class="p-4 row h-100 align-items-top align-middle">
-    <div class="mb-2 mb-md-0 cst-infoBox cst-leftishBox col-md-4 h-100">
+<div class="p-4 row align-items-top align-middle">
+    <div class="mb-2 mb-md-0 cst-boxBorder cst-infoBox col-md-4 h-100">
         <h2 class="boxTitle">Personal Info</h2>
         {% if personalInfo %}
         <div class="d-block mt-3 cst-wrapper-profile">
@@ -24,8 +24,19 @@
         </div>
         {% endif %}
     </div>
-    <div class=" cst-infoBox cst-rightishBox ms-auto col-md-7   ">
+    <div class=" cst-infoBox cst-boxBorder ms-auto col-md-7">
         <h2 class="boxTitle">Family Info</h2>
+        <div class="cst-infoField mb-3">
+            <span class="field-Title cst-field-general">name</span><span class="cst-field-general field-Value">{{ familyInfo['name'] }}</span>
+        </div>
+        <div class="cst-infoField mb-3">
+            <span class="field-Title cst-field-general">assigned tasks</span><span class="cst-field-general field-Value">{{ familyInfo['assigned'] }}</span>
+        </div>
+        <div class="cst-infoField">
+            <span class="field-Title cst-field-general">overdue tasks</span><span class="cst-field-general field-Value">{{ familyInfo['overdue'] }}</span>
+        </div>
     </div>
 </div>
+
+<script src="{{ url_for('static', filename='profile.js')}}"></script>
 {% endblock%}

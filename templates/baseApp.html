@@ -57,7 +57,7 @@
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 
 <section id="contentBox">
-    <div class="container-fluid">
+    <div class="container-fluid h-100">
         <h1 id="contentTitle">{% block pageHeading %}{% endblock %}</h1>
         {% block contentBox %}{% endblock %}
     </div>
