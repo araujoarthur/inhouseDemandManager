@@ -28,7 +28,7 @@ def familyRequired(route):
     """ Check if user is already in a family. If not, redirects them to the family assignment page. """
     @wraps(route)
     def decorated_route(*args, **kwargs):
-        if session.get('family_id') == 1:
+        if (session.get('family_id') == 1):
             return redirect('/join_family')
         return route(*args, **kwargs)
     return decorated_route

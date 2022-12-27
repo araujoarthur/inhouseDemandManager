@@ -18,4 +18,7 @@ transact.commitStatementList()
 
 db.enableAutoCommit()
 print(db.execute("SELECT * FROM test"))
-db.refreshConnection()
+
+savecursor = db.execute("INSERT INTO users(username, password) VALUES(?, ?)", "FO", "RRO")
+print(savecursor)
+savecursor = db.execute("UPDATE users SET username = ? WHERE id = ?", 'ficu','9')

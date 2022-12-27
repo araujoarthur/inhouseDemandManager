@@ -131,15 +131,19 @@ class idmSQLmanager(object):
         
         currReadyArgs = tuple(args)
         try:
-            self.cursor.execute(query, currReadyArgs)
+            self.cursor.execute(query, currReadyArgs) # Returns NoneType
             if resultQuery is None:
+                print('lastrowid: '+ str(self.cursor))
+                print('lastrowid: '+ str(self.cursor.insert_id))
+                print('lastrowid: '+ str(self.cursor.lastrowid))
                 return self.cursor.lastrowid
             else:  
                 return list(self.cursor)
         except Exception as e:
             print(traceback.format_exc())
             return False
-
+        
+        
         
         
 

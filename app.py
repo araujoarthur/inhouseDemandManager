@@ -142,10 +142,11 @@ def join_family():
                 flash(f"Incorrect secret code. Are you sure you are trying to join '{queryResult[0]['name']}'?")
                 return redirect("/join_family")
             else:
+                # Issue #2
                 queryData = db.execute("UPDATE users SET family_id = ? WHERE id = ?", request.form.get('familycode'), session['user_id'])
-                if queryData != False:
+                if (queryData != False) or (queryData == None):
                     print(queryData)
-                    session['family_id'] = queryData
+                    session['family_id'] = request.form.get('familycode')
                     flash("Joined successfuly.")
                     return redirect("/")
                 else:
@@ -194,7 +195,8 @@ def profile():
 
     if not(request.args.get('create')):
         familyData = db.execute('SELECT * from families WHERE id = ?', session['family_id'])[0]
-
+        print(familyData)
+        print(session['family_id'])
         familyDict = {
             'name': familyData['name'],
             'assigned': 0,
