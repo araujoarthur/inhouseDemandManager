@@ -20,4 +20,7 @@ TO-DO:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ ] Chores <br>
 
 ISSUES:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;[] Menu Disappears on Hover.
+&nbsp;&nbsp;&nbsp;&nbsp;[X] Menu Disappears on Hover.
+
+DISCLAIMER: <br>
+Project made for learning purposes. Every data presented is generated and does not intend to be real.

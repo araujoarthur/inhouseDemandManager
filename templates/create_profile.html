@@ -2,22 +2,30 @@
 {% block title %} Create a Profile {% endblock %}
 {% block pageHeading %} {{ session['username'] }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12"><path d="M4.7 10c-.2 0-.4-.1-.5-.2-.3-.3-.3-.8 0-1.1L6.9 6 4.2 3.3c-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0l3.3 3.2c.3.3.3.8 0 1.1L5.3 9.7c-.2.2-.4.3-.6.3z"></path></svg> create a profile {% endblock %}
 {% block contentBox %}
-<div class="p-4 row h-100 align-items-top align-middle">
+<div class="p-4 row d-flex justify-content-center align-items-top align-middle">
     <div class="mb-2 mb-md-0 cst-boxBorder cst-infoBox col-md-4 h-100">
         <h2 class="boxTitle">Create Profile</h2>
-        <form>
+        <form action="/create_profile" method="POST">
             <div class="cst-infoField mb-3">
-                <span class="field-Title cst-field-general">your name</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="text" placeholder="your name" name="username">
+                <span class="field-Title cst-field-general">your name</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="text" placeholder="your name" name="person_name">
             </div>
             <div class="cst-infoField mb-3">
-                <span class="field-Title cst-field-general">your birthday</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="text" placeholder="example 15/01/1989" name="username">
+                <span class="field-Title cst-field-general">your birthday</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="text" placeholder="dd/mm/YYYY" name="person_bday">
             </div>
             <div class="cst-infoField mb-3">
-                <span class="field-Title cst-field-general">your email</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="text" placeholder="your email" name="username">
+                <span class="field-Title cst-field-general">your email</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="email" placeholder="your email" name="person_mail">
+            </div>
+            {% if get_flashed_messages() %}
+                    <div class="cst-alert-form-warning">
+                        {{ get_flashed_messages() | join(" ") }}
+                    </div>
+            {% endif %}
+            <div class="d-flex justify-content-center">
+                <button role="button" id="login-button" class="btn btn-primary btn-login">Create</button>
             </div>
         </form>
     </div>
-    <div class=" cst-infoBox ms-auto col-md-7 h-100 align-middle justify-content-center d-flex align-items-center align-self-center">
+    <div class=" cst-infoBox ms-auto col-md-7 h-100 align-middle justify-content-center d-flex align-items-center">
         <h2 class="boxTitleLarge tracking-in-expand">Let's Create your profile!</h2>
     </div>
 </div>

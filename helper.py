@@ -5,6 +5,11 @@ import traceback
 from flask import redirect, render_template, request, session
 from functools import wraps
 
+from email_validator import validate_email, EmailNotValidError
+
+import datetime
+
+APP_DATE_FORMAT  = '%d/%m/%Y'
 
 def loginRequired(route):
     """ Verify if user is logged-in for pages where it is required. """
@@ -41,3 +46,17 @@ def familyMemberNotAllowed(route):
             return redirect('/')
         return route(*args, **kwargs)
     return decorated_route
+
+def validateEmail(mail):
+    try:
+        res = validate_email(mail).email
+        return res
+    except EmailNotValidError as e:
+        return False
+
+def validateDate(datestr):
+    try:
+        dateObj = datetime.datetime.strptime(datestr, APP_DATE_FORMAT).date()
+        return dateObj
+    except:
+        return False

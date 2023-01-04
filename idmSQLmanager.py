@@ -131,7 +131,7 @@ class idmSQLmanager(object):
         
         currReadyArgs = tuple(args)
         try:
-            self.cursor.execute(query, currReadyArgs) # Returns NoneType
+            self.cursor.execute(query, currReadyArgs)
             if resultQuery is None:
                 return self.cursor.lastrowid
             else:  
