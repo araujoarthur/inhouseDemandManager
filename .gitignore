@@ -1,3 +1,4 @@
-flask_session/
-__pycache__/
-env/
+inhouseDemandManager/flask_session/
+inhouseDemandManager/__pycache__/
+inhouseDemandManager/env/
+inhouseDemandManager.egg-info/
