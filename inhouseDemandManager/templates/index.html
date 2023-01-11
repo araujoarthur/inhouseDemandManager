@@ -1,1 +1,112 @@
-{% extends "baseApp.html" %}
+{% extends "baseAppAlt.html" %}
+
+{% block title %} Tasks Overview {% endblock %}
+{% block pageHeading %} {{ session['username'] }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12"><path d="M4.7 10c-.2 0-.4-.1-.5-.2-.3-.3-.3-.8 0-1.1L6.9 6 4.2 3.3c-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0l3.3 3.2c.3.3.3.8 0 1.1L5.3 9.7c-.2.2-.4.3-.6.3z"></path></svg> task overview{% endblock %}
+
+{% block contentBox %}
+<div class="p-4     ">
+    <section>
+        <div class="text-center">
+            <h2>Your assigned tasks</h2>
+        </div>
+        {% if not assigned_tasks == [] %} <!-- Assigned Demands -->
+        <div class="d-flex justify-content-center table-responsive fs-6">
+            <table class="table cst-demand-table fs-6">
+                <thead>
+                    <tr>
+                        <th scope="col">Demand Desc</th>
+                        <th scope="col">Created by</th>
+                        <th scope="col">Assigned to</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Flag</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Take a shower</td>
+                        <td>self</td>
+                        <td>usr.0</td>
+                        <td>12.11.1999</td>
+                        <td>13.11.1999</td>
+                        <td>Overdue</td>
+                        <td>{{ completed | safe }} {{ edit | safe }} {{ reassign | safe }}</td>
+                    </tr>
+                    <tr>
+                        <td>Supermarket list</td>
+                        <td>self</td>
+                        <td>usr.0</td>
+                        <td>12.11.1999</td>
+                        <td>13.11.1999</td>
+                        <td>Overdue</td>
+                        <td>{{ completed | safe }} {{ edit | safe }} {{ reassign | safe }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% else %} <!-- End of Assigned Demands -->
+        <div class="text-center mt-3">
+            <span class="tasks-balloon"> There are no tasks assigned to you </span>
+        </div>  
+        {% endif %}
+        
+    </section>
+    <hr>
+    <section>
+        <div class="text-center">
+            <h2>Your created tasks</h2>
+        </div>
+        {% if not created_tasks == [] %} <!-- Created Demands -->
+        <div class="d-flex justify-content-center table-responsive fs-6">
+            <table class="table cst-demand-table fs-6">
+                <thead>
+                    <tr>
+                        <th scope="col">Demand Desc</th>
+                        <th scope="col">Created by</th>
+                        <th scope="col">Assigned to</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Flag</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Take a shower</td>
+                        <td>12.11.1999</td>
+                        <td>13.11.1999</td>
+                        <td>Overdue</td>
+                        <td>F D C</td>
+                    </tr>
+                    <tr>
+                        <td>Supermarket list</td>
+                        <td>12.11.1999</td>
+                        <td>13.11.1999</td>
+                        <td>Overdue</td>
+                        <td>F D C</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% else %} <!-- End of Created Demands -->
+        <div class="text-center mt-3">
+            <span class="tasks-balloon"> There are no tasks created by you </span>
+        </div>  
+        {% endif %}
+        
+    </section>
+    <hr>
+    <section>
+        <div class="text-center">
+            <h2>Your family tasks</h2>
+        </div>
+        {% if not family_tasks == [] %} <!-- Family Demands -->
+        {% else %} <!-- End Family Demands -->
+        <div class="text-center mt-3">
+            <span class="tasks-balloon"> There are no other family tasks </span>
+        </div>  
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

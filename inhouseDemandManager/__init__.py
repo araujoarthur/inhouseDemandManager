@@ -45,15 +45,10 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+import inhouseDemandManager.tasks
 import inhouseDemandManager.authentication
 import inhouseDemandManager.family
 import inhouseDemandManager.profile
-
-@app.route("/")
-@loginRequired
-@familyRequired
-def index():
-    return render_template("index.html")
 
 @app.route("/testingRoute")
 def testingRoute():

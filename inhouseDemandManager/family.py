@@ -75,9 +75,13 @@ def create_family():
 @loginRequired
 @familyRequired
 def family():
+    return render_template('familyoverview.html')
+
+@app.route("/family_members", methods=["GET"])
+@loginRequired
+@familyRequired
+def family_members():
     res = db.execute("SELECT username FROM users WHERE family_id = ?", session['family_id'])
-    print('aaaaaaaaaaaaaaaaa')
-    print(res)
     if res == False:
         flash('Something wen\'t wrong')
         return redirect('/')
@@ -85,3 +89,16 @@ def family():
         return render_template("familymembers.html")
     else:
         return render_template("familymembers.html", familyMembers=res)
+
+@app.route('/leave_family', methods=['GET'])
+@loginRequired
+@familyRequired
+def leave_family():
+    if not request.args.get('confirmation'):
+        family_name = db.execute("SELECT name FROM families WHERE ID = ?", session['family_id'])[0]['name']
+        return render_template('leavefamilyprompt.html', family_name = family_name)
+    else:
+       res = db.execute('UPDATE users SET family_id = ? WHERE id = ?', 1, session['user_id'])
+       print(res)
+       session['family_id'] = 1
+       return redirect('/')

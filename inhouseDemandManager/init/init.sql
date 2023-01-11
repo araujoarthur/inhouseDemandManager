@@ -22,5 +22,23 @@ CREATE TABLE profiles(
     name VARCHAR(50) NOT NULL DEFAULT '' ,
     email VARCHAR(30) NOT NULL DEFAULT '',
     birthday TIMESTAMP NOT NULL DEFAULT UNIX_TIMESTAMP()
-)
+);
 
+CREATE TABLE task_types(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    type VARCHAR(20) NOT NULL
+);
+
+INSERT INTO task_types(type) VALUES('Bill');
+INSERT INTO task_types(type) VALUES('Goods List');
+INSERT INTO task_types(type) VALUES('Chores');
+
+CREATE TABLE flags(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(20) NOT NULL
+);
+
+INSERT INTO flags(name) VALUES('Overdue');
+INSERT INTO flags(name) VALUES('Urgent');
+INSERT INTO flags(name) VALUES('Postponed');
+INSERT INTO flags(name) VALUES('Advanced');
