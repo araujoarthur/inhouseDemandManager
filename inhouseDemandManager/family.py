@@ -70,3 +70,18 @@ def create_family():
 
     else:
         return render_template("create_family.html")
+
+@app.route("/family", methods=["GET"])
+@loginRequired
+@familyRequired
+def family():
+    res = db.execute("SELECT username FROM users WHERE family_id = ?", session['family_id'])
+    print('aaaaaaaaaaaaaaaaa')
+    print(res)
+    if res == False:
+        flash('Something wen\'t wrong')
+        return redirect('/')
+    elif res == []:
+        return render_template("familymembers.html")
+    else:
+        return render_template("familymembers.html", familyMembers=res)

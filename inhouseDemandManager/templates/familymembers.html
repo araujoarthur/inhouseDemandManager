@@ -1,0 +1,33 @@
+{% extends 'baseApp.html' %}
+{% block title%} Family Members {% endblock %}
+
+{% block pageHeading %} {{ session['username'] }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12"><path d="M4.7 10c-.2 0-.4-.1-.5-.2-.3-.3-.3-.8 0-1.1L6.9 6 4.2 3.3c-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0l3.3 3.2c.3.3.3.8 0 1.1L5.3 9.7c-.2.2-.4.3-.6.3z"></path></svg> family <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12"><path d="M4.7 10c-.2 0-.4-.1-.5-.2-.3-.3-.3-.8 0-1.1L6.9 6 4.2 3.3c-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0l3.3 3.2c.3.3.3.8 0 1.1L5.3 9.7c-.2.2-.4.3-.6.3z"></path></svg> family members{% endblock %}
+
+{% block contentBox%}
+    <div class="p-4 row d-flex justify-content-center align-items-top align-middle"> 
+        {% if familyMembers %} 
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">IDM Membership Since</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in familyMembers %}
+                <tr>
+                    <td>{{member['username']}}</td>
+                    <td>Date</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        {% else %}
+        <div class="d-flex justify-content-center align-middle">
+            <h2> There are no family members yet. </h2>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

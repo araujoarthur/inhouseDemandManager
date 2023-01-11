@@ -55,7 +55,6 @@ import inhouseDemandManager.profile
 def index():
     return render_template("index.html")
 
-            
 @app.route("/testingRoute")
 def testingRoute():
     pass
