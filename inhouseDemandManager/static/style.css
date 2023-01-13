@@ -278,7 +278,7 @@ path {
     height:calc(100% - 74px - 60px - 10px);
     border-radius: 10px;
     padding:15px 5px 15px 5px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 #contentTitle {
@@ -679,23 +679,86 @@ path {
     border-right:none;
 }
 
-.cst-combobox-wrapper {
+.cst-field-wrapper {
     font-family: 'Lexend Deca', sans-serif;
     background-color: #2DAC9B;
-    padding:0px 5px 5px 5px;
+    padding:0px 15px 5px 15px;
     border-radius:10px;
+    text-align:center;
 }
 
-.cst-combobox-wrapper span{
+.cst-field-wrapper span{
     color:#e6e6e6;
 }
 
-.cst-combobox-wrapper select {
+.cst-field-wrapper input{
+    background-color:#dedede;
+    border:3px solid #178072;
+    padding:2px 15px 2px 15px;
+    border-radius:10px;
+    outline:none;
+    transition:0.8s;
+}
+
+.cst-field-wrapper input:focus{
+    outline:none;
+    border:3px solid whitesmoke;
+    border-radius:20px;
+}
+
+.monetary::before{
+    content:'R$';
+}
+
+.cst-field-wrapper select {
+    background-color:#dedede;
+    border:3px solid #178072;
+    padding:3px 15px 3px 15px;
+    border-radius:10px;
+    outline:none;
+    transition:0.8s;
+}
+
+.cst-field-wrapper select option {
     border:2px solid #178072;
     border-radius:5px;
     font-size:10pt;
     background-color:#e6e6e6;
+    outline:none;
 }
+
+.cst-field-wrapper select:focus {
+    border:3px solid #178072;
+}
+
+.cst-field-wrapper textarea {
+    padding:10px;
+    border:2px solid #178072;
+    border-radius:10px;
+}
+
+/* Webkit resource: https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp */
+
+    /* Scrollbar */
+    /* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #e6e6e6;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #2DAC9B;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #189685;
+  }
 
 /* Bootstrap Overrides */
 

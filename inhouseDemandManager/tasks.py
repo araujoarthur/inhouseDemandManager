@@ -12,5 +12,7 @@ def index():
 @familyRequired
 def new_bill():
     bill_types = db.execute('SELECT * FROM bill_types')
+    family_members = db.execute('SELECT id, username FROM users WHERE family_id = ?', session['family_id'])
+    flags = db.execute('SELECT * FROM flags')
     print(bill_types)
-    return render_template("newBill.html", billTypes=bill_types)
+    return render_template("newBill.html", billTypes=bill_types, familyMembers=family_members, Flags=flags)
