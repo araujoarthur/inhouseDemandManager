@@ -10,17 +10,17 @@
             <h2>Your assigned tasks</h2>
         </div>
         {% if not assigned_tasks == [] %} <!-- Assigned Demands -->
-        <div class="d-flex justify-content-center table-responsive fs-6">
-            <table class="table cst-demand-table fs-6">
+        <div class="d-flex justify-content-center table-responsive">
+            <table class="table cst-demand-table align-middle">
                 <thead>
                     <tr>
-                        <th scope="col">Demand Desc</th>
-                        <th scope="col">Created by</th>
-                        <th scope="col">Assigned to</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Flag</th>
-                        <th scope="col">Actions</th>
+                        <th class="align-middle" scope="col">Task</th>
+                        <th class="align-middle" scope="col">Created by</th>
+                        <th class="align-middle" scope="col">Assigned to</th>
+                        <th class="align-middle" scope="col">Date Created</th>
+                        <th class="align-middle" scope="col">Due Date</th>
+                        <th class="align-middle" scope="col">Flag</th>
+                        <th class="align-middle" scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@
                         <td>12.11.1999</td>
                         <td>13.11.1999</td>
                         <td>Overdue</td>
-                        <td>{{ completed | safe }} {{ edit | safe }} {{ reassign | safe }}</td>
+                        <td>{{ completed | safe }} {{ edit | safe }} {{ reassign | safe }} {{ viewBox | safe }}</td>
                     </tr>
                     <tr>
                         <td>Supermarket list</td>
@@ -62,13 +62,13 @@
             <table class="table cst-demand-table fs-6">
                 <thead>
                     <tr>
-                        <th scope="col">Demand Desc</th>
-                        <th scope="col">Created by</th>
-                        <th scope="col">Assigned to</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Flag</th>
-                        <th scope="col">Actions</th>
+                        <th class="align-middle" scope="col">Task</th>
+                        <th class="align-middle" scope="col">Created by</th>
+                        <th class="align-middle" scope="col">Assigned to</th>
+                        <th class="align-middle" scope="col">Date Created</th>
+                        <th class="align-middle" scope="col">Due Date</th>
+                        <th class="align-middle" scope="col">Flag</th>
+                        <th class="align-middle" scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

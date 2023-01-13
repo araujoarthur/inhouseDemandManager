@@ -1,0 +1,41 @@
+{% extends 'baseApp.html' %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block pageHeading %} {{ session['username'] }} {{ headingArrow | safe}} new bill {% endblock %}
+
+{% block contentBox %}
+    <div class="container-fluid bg-dark p-4 mt-2">
+        <div class="row">
+            <form>
+                <div class="row">
+                    <div class="col-5 me-auto">
+                        <span class="field-Title cst-field-general">task title</span><input requierd="required" class="cst-field-general cst-insideField" autocomplete="off" type="text" placeholder="the task title" name="task_title">
+                        <div class="d-flex mt-2">
+                            <div class="text-center d-flexbox cst-combobox-wrapper">
+                                <span class="d-block">Bill Type</span>
+                                <select name="bill_type" id="bill_type">
+                                    {% for option in billTypes %}
+                                        <option value="{{ option['id'] }}">{{ option['name'] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="d-flex">
+                            <div class="text-center d-flexbox cst-combobox-wrapper">
+                                <span>Task Description</span>
+                                <textarea id="task_desk" name="task_desk" rows="4" cols="50" maxlength="380">
+                                    At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

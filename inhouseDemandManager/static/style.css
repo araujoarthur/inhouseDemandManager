@@ -679,6 +679,24 @@ path {
     border-right:none;
 }
 
+.cst-combobox-wrapper {
+    font-family: 'Lexend Deca', sans-serif;
+    background-color: #2DAC9B;
+    padding:0px 5px 5px 5px;
+    border-radius:10px;
+}
+
+.cst-combobox-wrapper span{
+    color:#e6e6e6;
+}
+
+.cst-combobox-wrapper select {
+    border:2px solid #178072;
+    border-radius:5px;
+    font-size:10pt;
+    background-color:#e6e6e6;
+}
+
 /* Bootstrap Overrides */
 
 .btn.btn-primary.btn-login {

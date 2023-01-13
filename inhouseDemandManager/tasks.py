@@ -6,3 +6,11 @@ from . import loggedInNotAllowed, db, loginRequired, loggedInNotAllowed, familyR
 @familyRequired
 def index():
     return render_template("index.html", assigned_tasks=[1], created_tasks=[1], family_tasks=[1])
+
+@app.route("/new_bill")
+@loginRequired
+@familyRequired
+def new_bill():
+    bill_types = db.execute('SELECT * FROM bill_types')
+    print(bill_types)
+    return render_template("newBill.html", billTypes=bill_types)
