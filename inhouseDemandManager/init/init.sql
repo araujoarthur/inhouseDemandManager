@@ -73,7 +73,7 @@ CREATE TABLE bills(
     type_id INTEGER NOT NULL,
     task_id INTEGER NOT NULL,
     name VARCHAR(35) NOT NULL,
-    value REAL NOT NULL,
+    value INTEGER NOT NULL, /* Using an integer to store a integer value of cents and make sure it doesn't lose precision */
     due TIMESTAMP NOT NULL,
     bol_code VARCHAR(58) DEFAULT NULL,
     bank_code VARCHAR(4) DEFAULT NULL,
